@@ -20,3 +20,13 @@ void BookManager::displayAllBooks() const
 	}
 
 }
+
+void BookManager::searchByTitle(const string& title)
+{
+
+}
+
+void BookManager::searchByAuthor(const string& author)
+{
+
+}
