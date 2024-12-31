@@ -133,6 +133,9 @@
   <ItemGroup>
     <ClInclude Include="Book.h" />
     <ClInclude Include="BookManager.h" />
+    <ClInclude Include="BorrowManager.h" />
+    <ClInclude Include="Manager.h" />
+    <ClInclude Include="Role.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

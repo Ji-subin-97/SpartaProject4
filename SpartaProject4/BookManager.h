@@ -1,12 +1,14 @@
 #pragma once
-#include <vector>
-#include "Book.h"
-using namespace std;
+#include "Manager.h"
 
 class BookManager {
 private:
-	vector<Book> books;
+	Role role = Role::BOOK_MANAGE;
 public:
-	void addBook(const string& title, const string& author);
-	void displayAllBooks() const;
+	BookManager() {}
+	//Role getRole() const override;
+	//void displayAllBooks() override;
+
+	// 책 추가, 삭제
+	// 책 검색
 };
