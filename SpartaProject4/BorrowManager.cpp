@@ -14,7 +14,7 @@ void BorrowManager::findAllBooks(BookCase& bookcase) {
 	}
 
 	for (const Book& book : books) {
-		string status = book.getCount() > 0  && book.getCount() > book.getRcount() ? "가능" : "불가능";
+		string status = book.getCount() > 0 ? "가능" : "불가능";
 
 		cout << "[ 제목: " << book.getTitle() << " ]" << "[ 저자: " << book.getAuthor() << " ]"
 			<< "[ 등록 수: " << book.getCount() << "개 ]"  << "[ 대여 수: " << book.getRcount() << "개 ]"
@@ -34,7 +34,7 @@ void BorrowManager::findBookByTitle(const string& title, BookCase& bookcase) {
 	}
 
 	for (Book& book : books) {
-		if (book.getTitle().find(title) != string::npos && book.getCount() > 0 && book.getCount() > book.getRcount()) {
+		if (book.getTitle().find(title) != string::npos && book.getCount() > 0) {
 			if (isFirst) {
 				cout << "[ " << title << " ] 제목으로 검색된 현재 대여가능한 도서 목록입니다." << endl;
 				isFirst = false;
@@ -78,7 +78,7 @@ void BorrowManager::findBookByAuthor(const string& author, BookCase& bookcase) {
 	}
 
 	for (Book& book : books) {
-		if (book.getAuthor().find(author) != string::npos && book.getCount() > 0 && book.getCount() > book.getRcount()) {
+		if (book.getAuthor().find(author) != string::npos && book.getCount() > 0) {
 			if (isFirst) {
 				cout << "[ " << author << " ] 저자로 검색된 현재 대여가능한 도서 목록입니다." << endl;
 				isFirst = false;
