@@ -21,21 +21,24 @@
     <ClCompile Include="BookManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="BorrowManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Book.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="BookManager.h">
+    <ClInclude Include="BookCase.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Manager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="BorrowManager.h">
+    <ClInclude Include="BookManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Role.h">
+    <ClInclude Include="BorrowManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

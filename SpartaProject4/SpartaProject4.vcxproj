@@ -128,14 +128,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BookManager.cpp" />
+    <ClCompile Include="BorrowManager.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Book.h" />
+    <ClInclude Include="BookCase.h" />
     <ClInclude Include="BookManager.h" />
     <ClInclude Include="BorrowManager.h" />
     <ClInclude Include="Manager.h" />
-    <ClInclude Include="Role.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

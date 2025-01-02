@@ -1,181 +1,161 @@
 #include <iostream>
-#include "Manager.h"
+#include "BookCase.h"
+#include "BookManager.h"
+#include "BorrowManager.h"
 
 using namespace std;
 
-class User {
-private:
-    string name;
-    int bookCount;          // 빌려간 횟수
-    int rbookCount;         // 반납한 횟수
-    Role role;
-public:
-    User(string name, Role role) : name(name), role(role) 
-    {
-        bookCount = 0;
-        rbookCount = 0;
-    }
-    string getName()
-    {
-        return name;
-    }
-    int getBookCount()
-    {
-        return bookCount;
-    }
-    int getRbookCount()
-    {
-        return rbookCount;
-    }
-    Role getRole()
-    {
-        return role;
-    }
-};
-
-// void checkAuth(User user);
-void normalMode();
-void bookManage();
-void borrowManage();
-
-static map<int, User> userDB;   // 임시DB
-
 int main()
-{
-    User user("Pizza", Role::ALL_MANAGE);
-    userDB.insert({ 1, user });
+{	
+	// Manager: 공통 : 도서목록조회, 도서목록검색
+	// BookCase : 책장
 
-    bool isRun = true;
-    int choice = 0;
-    Role userRole = user.getRole();
+	BookManager bookManager;
+	BorrowManager borrowManager;
 
-    while (isRun) {
-        cout << "\n스파르타코딩클럽 도서관 관리 프로그램" << endl;
-        cout << "어서오세요. [ " << user.getName() << " ] 님 원하시는 작업을 선택해주세요." << endl;
-        cout << "1. 도서 관리" << endl;
-        cout << "2. 도서 대출 및 반납 관리" << endl;
-        cout << "3. 도서 이용" << endl;
-        cout << "4. 프로그램 종료" << endl;
-        cout << "선택: ";
-        cin >> choice;
+	BookCase* bookCase = new BookCase("Sparta");
 
-        if (cin.fail()) {
-            cout << "잘못된 입력입니다. 숫자만 입력해 주세요." << endl;
-            cin.clear();
-            cin.ignore();
+	int choice;
+	bool isRun = true;
 
-            continue;
-        }
+	while (isRun) {
+		cout << "\n스파르타코딩클럽 도서관리프로그램" << endl;
+		cout << "1. 도서 추가" << endl;
+		cout << "2. 도서 목록" << endl;
+		cout << "3. 도서 검색" << endl;
+		cout << "4. 도서 관리" << endl;
+		cout << "5. 도서 대여" << endl;
+		cout << "6. 도서 반납" << endl;
+		cout << "7. 프로그램 종료" << endl;
+		cout << "선택: ";
+		cin >> choice;
 
-        switch (choice)
-        {
-        case 1:
-            if (userRole == Role::ALL_MANAGE || userRole == Role::BOOK_MANAGE) {
-                bookManage();
-            }
-            else {
-                cout << "해당 작업에 권한이 없습니다. 관리자에게 문의해주세요." << endl;
-                break;
-            }
-            break;
-        case 2:
-            if (userRole == Role::ALL_MANAGE || userRole == Role::BRROW_MANAGE) {
-                borrowManage();
-            }
-            else {
-                cout << "해당 작업에 권한이 없습니다. 관리자에게 문의해주세요." << endl;
-                break;
-            }
-            break;
-        case 3:
-            normalMode();
-            break;
-        case 4:
-            cout << "프로그램을 종료합니다. 이용해주셔서 감사합니다. :)" << endl;
-            isRun = false;
-            break;
-        default:
-            break;
-        }
-    }
+		if (cin.fail()) {
+			cout << "숫자만 입력가능합니다." << endl;
+			cin.clear();
+			cin.ignore();
 
-    return 0; // 프로그램 정상 종료
-}
+			continue;
+		}
 
-void normalMode() 
-{
+		switch (choice)
+		{
+		case 1:
+		{
+			string title, author;
+			cout << "\n도서 제목: ";
+			cin.ignore();
+			getline(cin, title);
+			cout << "도서 저자: ";
+			getline(cin, author);
 
-}
-void bookManage() 
-{
-    bool isThreadEnd = false;
-    int choice = 0;
-    
-    while (!isThreadEnd) {
-        cout << "\n=================도서관리 모드=================" << endl;
-        cout << "1. 도서 추가" << endl;
-        cout << "2. 도서 삭제" << endl;
-        cout << "3. 도서 검색" << endl;
-        cout << "4. 메인 메뉴" << endl;
-        cout << "선택: ";
-        cin >> choice;
+			bookManager.insertBook(title, author, *bookCase);
+		}
+			break;
+		case 2:
+			bookManager.findAllBooks(*bookCase);
+			break;
+		case 3:
+		{
+			while (true) {
+				cout << "\n1. 제목기반 검색" << endl;
+				cout << "2. 저자기반 검색" << endl;
+				cout << "3. 메인메뉴" << endl;
+				cout << "선택: ";
+				cin >> choice;
 
-        if (cin.fail()) {
-            cout << "잘못된 입력입니다. 숫자만 입력해 주세요." << endl;
-            cin.clear();
-            cin.ignore();
+				if (cin.fail()) {
+					cout << "숫자만 입력가능합니다." << endl;
+					cin.clear();
+					cin.ignore();
 
-            continue;
-        }
+					continue;
+				}
 
-        switch (choice)
-        {
-        case 1:
-            break;
-        case 2:
-            break;
-        case 4:
-            isThreadEnd = true;
-            break;
-        default:
-            break;
-        }
-    }
-}
-void borrowManage() 
-{
-    bool isThreadEnd = false;
-    int choice = 0;
+				if (choice == 1) {
+					string title;
+					cout << "도서 제목: ";
+					cin.ignore();
+					getline(cin, title);
 
-    while (!isThreadEnd) {
-        cout << "\n=============도서 대출 및 반납 모드============" << endl;
-        cout << "1. 도서 대출" << endl;
-        cout << "2. 도서 반납" << endl;
-        cout << "3. 도서 재고 확인" << endl;
-        cout << "4. 도서 재고 수정" << endl;
-        cout << "5. 메인 메뉴" << endl;
-        cout << "선택: ";
-        cin >> choice;
+					bookManager.findBookByTitle(title, *bookCase);
+				}
+				else if (choice == 2) {
+					string author;
+					cout << "도서 저자: ";
+					cin.ignore();
+					getline(cin, author);
 
-        if (cin.fail()) {
-            cout << "잘못된 입력입니다. 숫자만 입력해 주세요." << endl;
-            cin.clear();
-            cin.ignore();
+					bookManager.findBookByAuthor(author, *bookCase);
+				}
+				else if (choice == 3) {
+					break;
+				}
+				else {
+					cout << "잘못된 입력입니다. 메뉴 번호중 선택해주세요." << endl;
+				}
+			}
+		}
+			break;
+		case 4:
+			borrowManager.findAllBooks(*bookCase);
+			break;
+		case 5:
+			while (true) {
+				cout << "\n스파르타코딩클럽 도서대여 서비스입니다. :)" << endl;
+				cout << "검색 후 원하시는 도서를 선택해주세요. 대반여부 확인 필." << endl;
+				cout << "1. 제목기반 검색" << endl;
+				cout << "2. 저자기반 검색" << endl;
+				cout << "3. 메인메뉴" << endl;
+				cout << "선택: ";
+				cin >> choice;
 
-            continue;
-        }
+				if (cin.fail()) {
+					cout << "숫자만 입력가능합니다." << endl;
+					cin.clear();
+					cin.ignore();
 
-        switch (choice)
-        {
-        case 1:
-            break;
-        case 2:
-            break;
-        case 5:
-            isThreadEnd = true;
-            break;
-        default:
-            break;
-        }
-    }
+					continue;
+				}
+
+				if (choice == 1) {
+					string title, author;
+					cout << "도서 제목: ";
+					cin.ignore();
+					getline(cin, title);
+
+					borrowManager.rentalBook(title, author, *bookCase);
+				}
+				else if (choice == 2) {
+					string title, author;
+					cout << "도서 저자: ";
+					cin.ignore();
+					getline(cin, author);
+
+					borrowManager.rentalBook(title, author, *bookCase);
+				}
+				else if (choice == 3) {
+					break;
+				}
+				else {
+					cout << "잘못된 입력입니다. 메뉴 번호중 선택해주세요." << endl;
+				}
+			}
+
+			break;
+		case 6:
+			break;
+		case 7:
+			cout << "프로그램을 종료합니다. 이용해 주셔서 감사합니다. :)" << endl;
+			isRun = false;
+			break;
+		default:
+			cout << "잘못된 입력입니다. 메뉴 번호중 선택해주세요." << endl;
+			break;
+		}
+	}
+
+	delete bookCase;
+
+	return 0;
 }

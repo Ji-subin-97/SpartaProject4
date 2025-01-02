@@ -1,17 +1,22 @@
 #pragma once
 #include "Manager.h"
+#include "BookCase.h"
 
-class BorrowManager {
-private:
-	Role role = Role::BRROW_MANAGE;
+class BorrowManager : public Manager {
+private :
+	std::vector<Book> rentalBooks;
 public:
-	BorrowManager() {}
-	//Role getRole() const override;
-	//void displayAllBooks() override;
+	// 모든 도서 출력
+	void findAllBooks(BookCase& bookcase);
+	// 제목 기반 검색
+	void findBookByTitle(const std::string& title, BookCase& bookcase);
+	// 저자 기반 검색
+	void findBookByAuthor(const std::string& author, BookCase& bookcase);
+	// 추가
+	void insertBook(const std::string& title, const std::string& author, BookCase& bookcase);
+	// void updateBook();			// 수정
+	// void deleteBook();			// 삭제
 
-
-	// 책 빌려주기
-	// 책 반납받기
-	// 책 재고 확인하기
-	// 책 재고 수정하기
+	// 책 대여
+	void rentalBook(const std::string& title, const std::string& author, BookCase& bookcase);
 };
