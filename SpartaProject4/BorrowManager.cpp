@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 #include "BorrowManager.h"
 
 using namespace std;
@@ -51,7 +52,7 @@ void BorrowManager::findBookByTitle(const string& title, BookCase& bookcase) {
 				book.setRcount(book.getRcount() + 1);
 			}
 			else if (choice == 2) {
-				break;
+				continue;
 			}
 			else {
 				cout << "잘못된 입력입니다. 예(1) 및 아니오(2)중 선택해주세요." << endl;
@@ -95,7 +96,7 @@ void BorrowManager::findBookByAuthor(const string& author, BookCase& bookcase) {
 				book.setRcount(book.getRcount() + 1);
 			}
 			else if (choice == 2) {
-				break;
+				continue;
 			}
 			else {
 				cout << "잘못된 입력입니다. 예(1) 및 아니오(2)중 선택해주세요." << endl;
@@ -122,6 +123,34 @@ void BorrowManager::rentalBook(const std::string& title, const std::string& auth
 		findBookByAuthor(author, bookcase);
 	}
 	
-	bookcase.getBooks();
+}
+
+void BorrowManager::returnBook(BookCase& bookcase) {
+	int choice;
+	vector<Book>& books = bookcase.getBooks();
+
+	if (rentalBooks.size() == 0) {
+		cout << "반납하실 도서가 없습니다." << endl;
+		return;
+	}
+
+	cout << "반납하실 도서를 선택해주세요." << endl;
+	for (int i = 0; i < rentalBooks.size(); i++) {
+		cout << "[ " << i + 1 << " ] " << rentalBooks[i].getTitle() << " by " << rentalBooks[i].getAuthor() << endl;
+	}
+	cout << "선택: ";
+	cin >> choice;
+
+	for (Book& book : books) {
+		if (rentalBooks[choice - 1].getTitle() == book.getTitle()) {
+			book.setCount(book.getCount() + 1);
+			book.setRcount(book.getRcount() - 1);
+
+			break;
+		}
+	}
+	
+	cout << rentalBooks[choice - 1].getTitle() << " by " << rentalBooks[choice - 1].getAuthor() << "을 반납 완료하셨습니다." << endl;
+	rentalBooks.erase(rentalBooks.begin() + (choice - 1));
 }
 

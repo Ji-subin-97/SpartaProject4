@@ -11,6 +11,7 @@ public:
 	BookCase(const std::string& caseName){
 		this->caseName = caseName;
 	}
+	~BookCase(){}
 
 	const std::string& getCaseName() {
 		return caseName;

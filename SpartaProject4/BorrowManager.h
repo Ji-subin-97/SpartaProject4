@@ -6,6 +6,8 @@ class BorrowManager : public Manager {
 private :
 	std::vector<Book> rentalBooks;
 public:
+	BorrowManager() {}
+	~BorrowManager() {}
 	// 모든 도서 출력
 	void findAllBooks(BookCase& bookcase);
 	// 제목 기반 검색
@@ -19,4 +21,6 @@ public:
 
 	// 책 대여
 	void rentalBook(const std::string& title, const std::string& author, BookCase& bookcase);
+	// 책 반납
+	void returnBook(BookCase& bookcase);
 };

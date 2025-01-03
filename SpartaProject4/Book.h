@@ -14,6 +14,7 @@ public:
 		this->count = count;
 		this->rCount = rCount;
 	}
+	~Book() {}
 
 	std::string getTitle() const {
 		return title;

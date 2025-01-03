@@ -4,6 +4,7 @@
 
 class BookManager : public Manager {
 public:
+	~BookManager() {}
 	// 모든 도서 출력
 	void findAllBooks(BookCase& bookcase);				
 	// 제목 기반 검색
