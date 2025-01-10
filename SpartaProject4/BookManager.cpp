@@ -1,6 +1,8 @@
 #include <iostream>
 #include "BookManager.h"
 
+// 2
+
 void BookManager::addBook(const string& title, const string& author)
 {
 	books.push_back(Book(title, author));
